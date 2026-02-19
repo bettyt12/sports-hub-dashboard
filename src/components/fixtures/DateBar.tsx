@@ -14,7 +14,7 @@ export default function DateBar({ dates, selectedDate, onSelectDate }: DateBarPr
   return (
     <div className="bg-surface-bar flex items-center gap-4 overflow-x-auto py-3 px-4">
       <div className="flex items-center gap-3 shrink-0">
-        {dates.map(({ value, label, isToday }) => {
+        {dates.map(({ value, label }) => {
           const isSelected = value === selectedDate
           return (
             <button

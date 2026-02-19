@@ -6,8 +6,6 @@ import type { TimelineEvent } from '../types/event'
  * Keeps the Events tab layout pixel-perfect; replace with real data when available.
  */
 export function getMockTimelineEvents(event: SportsDbEvent): TimelineEvent[] {
-  const home = event.strHomeTeam ?? 'Home'
-  const away = event.strAwayTeam ?? 'Away'
   const id = event.idEvent
 
   return [

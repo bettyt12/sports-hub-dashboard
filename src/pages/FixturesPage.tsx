@@ -5,7 +5,7 @@ import DateBar from '../components/fixtures/DateBar'
 import FilterTabs from '../components/fixtures/FilterTabs'
 import LeagueSection from '../components/fixtures/LeagueSection'
 import { getMatchStatus } from '../utils/matchStatus'
-import { formatDateBarLabel, isToday, getTodayISO } from '../utils/dateFormat'
+import { formatDateBarLabel, isToday } from '../utils/dateFormat'
 import type { SportsDbEvent } from '../types/event'
 
 type TabId = 'all' | 'live' | 'favorites'
@@ -41,7 +41,6 @@ export default function FixturesPage() {
       if (d) set.add(d)
     })
     const sorted = Array.from(set).sort()
-    const today = getTodayISO()
     const options: { value: string | null; label: string; isToday: boolean }[] = [
       { value: null, label: 'All', isToday: false },
     ]

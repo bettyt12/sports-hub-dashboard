@@ -7,7 +7,7 @@ interface MatchCardProps {
   event: SportsDbEvent
 }
 
-function teamLogo(url: string | null | undefined, alt: string) {
+function teamLogo(url: string | null | undefined) {
   if (url) {
     return (
       <img
@@ -63,11 +63,11 @@ export default function MatchCard({ event }: MatchCardProps) {
         <div className="flex-1 grid grid-cols-[1fr_auto_auto] gap-2 items-center min-w-0">
           <div className="flex flex-col gap-1 min-w-0">
             <div className="flex items-center gap-2 min-w-0">
-              {teamLogo(homeLogo, event.strHomeTeam)}
+              {teamLogo(homeLogo)}
               <span className="text-team text-white truncate">{event.strHomeTeam}</span>
             </div>
             <div className="flex items-center gap-2 min-w-0">
-              {teamLogo(awayLogo, event.strAwayTeam)}
+              {teamLogo(awayLogo)}
               <span className="text-team text-white truncate">{event.strAwayTeam}</span>
             </div>
           </div>
