@@ -8,17 +8,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Header & brand (Figma: purple bar)
+        // Header & brand (Figma: purple bar #6B38E3)
         header: {
-          DEFAULT: '#5F20D9',
-          hover: '#4E1BB8',
+          DEFAULT: '#6B38E3',
+          hover: '#5a2fc7',
         },
-        // Main backgrounds
+        // Main backgrounds (Figma: #1B1D2C main, #212335 cards/inactive)
         surface: {
-          DEFAULT: '#1A1E2B',
-          elevated: '#1A1A1E',
-          card: '#28282D',
-          bar: '#2B3040',
+          DEFAULT: '#1B1D2C',
+          elevated: '#1B1D2C',
+          card: '#212335',
+          bar: '#212335',
         },
         // Borders & dividers
         border: {
@@ -37,8 +37,9 @@ export default {
         // Text
         muted: '#9ca3af',
         // Legacy/alias
-        primary: '#5F20D9',
-        'primary-hover': '#4E1BB8',
+        primary: '#6B38E3',
+        'primary-hover': '#5a2fc7',
+        secondary: '#00FFA5',
       },
       fontFamily: {
         sans: ['Inter', 'Roboto', 'system-ui', 'sans-serif'],

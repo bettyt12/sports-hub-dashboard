@@ -24,6 +24,8 @@ export default function MatchHeader({ event }: MatchHeaderProps) {
   const homeScore = event.intHomeScore ?? '-'
   const awayScore = event.intAwayScore ?? '-'
   const isFinished = label === 'FT'
+  const homeScoreNum = event.intHomeScore != null && event.intHomeScore !== '' ? event.intHomeScore : null
+  const awayScoreNum = event.intAwayScore != null && event.intAwayScore !== '' ? event.intAwayScore : null
 
   return (
     <div className="bg-surface-card border-b border-border px-4 py-4">
@@ -39,18 +41,25 @@ export default function MatchHeader({ event }: MatchHeaderProps) {
       </Link>
       <div className="flex items-center justify-between gap-4">
         <div className="flex flex-col items-center min-w-0 flex-1">
-          {homeLogo ? (
-            <img src={homeLogo} alt="" className="w-12 h-12 object-contain" />
-          ) : (
-            <div className="w-12 h-12 rounded-full bg-surface-bar flex items-center justify-center text-muted text-xs">H</div>
-          )}
+          <div className="relative">
+            {homeLogo ? (
+              <img src={homeLogo} alt="" className="w-12 h-12 object-contain" />
+            ) : (
+              <div className="w-12 h-12 rounded-full bg-surface-bar flex items-center justify-center text-muted text-xs">H</div>
+            )}
+            {homeScoreNum != null && (
+              <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-yellow-500 text-black text-xs font-bold flex items-center justify-center">
+                {homeScoreNum}
+              </span>
+            )}
+          </div>
           <span className="text-team text-white mt-2 truncate w-full text-center">{event.strHomeTeam}</span>
         </div>
         <div className="flex flex-col items-center shrink-0 px-4">
-          <span className="text-surface-bar text-status mb-1">{formatDate(event.dateEvent)}</span>
+          <span className="text-muted text-status mb-1">{formatDate(event.dateEvent)}</span>
           <span className="text-2xl font-bold text-white tabular-nums">{homeScore} - {awayScore}</span>
           <span
-            className={`mt-2 px-3 py-1 rounded-pill text-status font-medium ${
+            className={`mt-2 px-3 py-1 rounded text-status font-medium ${
               isFinished ? 'bg-finished text-white' : 'bg-surface-bar text-muted'
             }`}
           >
@@ -58,11 +67,18 @@ export default function MatchHeader({ event }: MatchHeaderProps) {
           </span>
         </div>
         <div className="flex flex-col items-center min-w-0 flex-1">
-          {awayLogo ? (
-            <img src={awayLogo} alt="" className="w-12 h-12 object-contain" />
-          ) : (
-            <div className="w-12 h-12 rounded-full bg-surface-bar flex items-center justify-center text-muted text-xs">A</div>
-          )}
+          <div className="relative">
+            {awayLogo ? (
+              <img src={awayLogo} alt="" className="w-12 h-12 object-contain" />
+            ) : (
+              <div className="w-12 h-12 rounded-full bg-surface-bar flex items-center justify-center text-muted text-xs">A</div>
+            )}
+            {awayScoreNum != null && (
+              <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-yellow-500 text-black text-xs font-bold flex items-center justify-center">
+                {awayScoreNum}
+              </span>
+            )}
+          </div>
           <span className="text-team text-white mt-2 truncate w-full text-center">{event.strAwayTeam}</span>
         </div>
       </div>

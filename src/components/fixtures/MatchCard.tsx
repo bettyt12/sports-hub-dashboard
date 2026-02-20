@@ -42,7 +42,7 @@ export default function MatchCard({ event }: MatchCardProps) {
   return (
     <Link
       to={matchDetail(event.idEvent)}
-      className="flex items-stretch bg-surface-card rounded-card overflow-hidden border border-border/50 hover:border-border transition-colors min-h-[72px]"
+      className="flex items-stretch bg-surface-card rounded-card overflow-hidden hover:bg-surface-bar/80 transition-colors min-h-[72px]"
     >
       {barColor && (
         <div className={`w-status-bar shrink-0 self-stretch ${barColor}`} aria-hidden />
@@ -51,7 +51,11 @@ export default function MatchCard({ event }: MatchCardProps) {
         <div className="flex flex-col items-center shrink-0 w-10">
           <span
             className={`text-status font-medium ${
-              status === 'live' || status === 'halftime' ? 'text-live' : 'text-white'
+              status === 'finished'
+                ? 'text-finished'
+                : status === 'live' || status === 'halftime'
+                  ? 'text-live'
+                  : 'text-muted'
             }`}
           >
             {label}

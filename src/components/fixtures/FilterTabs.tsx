@@ -31,7 +31,9 @@ export default function FilterTabs({ active, onSelect, counts = {} }: FilterTabs
           {icon === 'live' && <LiveIcon />}
           {icon === 'heart' && <HeartIcon />}
           <span>{label}</span>
-          <span className="opacity-90">{count}</span>
+          <span className="min-w-[1.25rem] px-1.5 py-0.5 rounded-md bg-black/20 text-center text-xs font-medium">
+            {count}
+          </span>
         </button>
         )
       })}

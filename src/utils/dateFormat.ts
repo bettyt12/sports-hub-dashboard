@@ -30,3 +30,20 @@ export function getTodayISO(): string {
   const t = new Date()
   return t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0')
 }
+
+/**
+ * Get a list of date strings (YYYY-MM-DD) for a range: daysBack before today, daysForward after.
+ */
+export function getDateRange(daysBack: number, daysForward: number): string[] {
+  const out: string[] = []
+  const t = new Date()
+  for (let i = -daysBack; i <= daysForward; i++) {
+    const d = new Date(t)
+    d.setDate(d.getDate() + i)
+    const y = d.getFullYear()
+    const m = String(d.getMonth() + 1).padStart(2, '0')
+    const day = String(d.getDate()).padStart(2, '0')
+    out.push(`${y}-${m}-${day}`)
+  }
+  return out
+}

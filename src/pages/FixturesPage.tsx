@@ -5,7 +5,7 @@ import DateBar from '../components/fixtures/DateBar'
 import FilterTabs from '../components/fixtures/FilterTabs'
 import LeagueSection from '../components/fixtures/LeagueSection'
 import { getMatchStatus } from '../utils/matchStatus'
-import { formatDateBarLabel, isToday } from '../utils/dateFormat'
+import { formatDateBarLabel, isToday, getDateRange, getTodayISO } from '../utils/dateFormat'
 import type { SportsDbEvent } from '../types/event'
 
 type TabId = 'all' | 'live' | 'favorites'
@@ -29,22 +29,17 @@ function getEventDate(event: SportsDbEvent): string | null {
 
 export default function FixturesPage() {
   const [activeTab, setActiveTab] = useState<TabId>('all')
-  const [selectedDate, setSelectedDate] = useState<string | null>(null)
+  const [selectedDate, setSelectedDate] = useState<string | null>(() => getTodayISO())
   const { events, loading, error, refetch } = useFixtures()
 
   usePolling(refetch, [])
 
   const dateOptions = useMemo(() => {
-    const set = new Set<string>()
-    events.forEach((e) => {
-      const d = getEventDate(e)
-      if (d) set.add(d)
-    })
-    const sorted = Array.from(set).sort()
     const options: { value: string | null; label: string; isToday: boolean }[] = [
       { value: null, label: 'All', isToday: false },
     ]
-    sorted.forEach((d) => {
+    const range = getDateRange(7, 14)
+    range.forEach((d) => {
       const full = formatDateBarLabel(d)
       const dayAndMonth = full.split(' ').slice(1).join(' ')
       options.push({
@@ -54,7 +49,7 @@ export default function FixturesPage() {
       })
     })
     return options
-  }, [events])
+  }, [])
 
   const filteredByDate = useMemo(() => {
     if (selectedDate === null) return events

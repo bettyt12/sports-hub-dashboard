@@ -17,9 +17,10 @@ export default function EventsTimeline({
   return (
     <div className="px-4 py-6">
       <h2 className="text-league text-white font-semibold mb-4">Events</h2>
-      <div className="border-t border-border pt-4">
+      <div className="border-t border-border pt-4 relative">
         <TimelineDivider label={`Fulltime ${homeScore} - ${awayScore}`} />
-        <div className="space-y-0 py-2">
+        <div className="relative my-2 space-y-1">
+          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-border -translate-x-px" aria-hidden />
           {events.map((ev) => (
             <EventItem key={ev.id} event={ev} />
           ))}

@@ -1,33 +1,51 @@
-import { NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import type { HeaderTabId } from './types'
 import { ROUTES } from '../../routes'
 
-const TABS = [
-  { label: 'Live', to: '#', end: true },
-  { label: 'Matches', to: ROUTES.HOME, end: false },
-  { label: 'Standings', to: '#', end: true },
-  { label: 'Teams', to: '#', end: true },
-  { label: 'Comparison', to: '#', end: true },
-  { label: 'Statistics', to: '#', end: true },
-  { label: 'Venues', to: '#', end: true },
-] as const
+const TABS: HeaderTabId[] = [
+  'Live',
+  'Matches',
+  'Standings',
+  'Teams',
+  'Comparison',
+  'Statistics',
+  'Venues',
+]
 
-export default function HeaderNav() {
+interface HeaderNavProps {
+  activeTab: HeaderTabId
+  onTabChange: (tab: HeaderTabId) => void
+}
+
+export default function HeaderNav({ activeTab, onTabChange }: HeaderNavProps) {
+  const navigate = useNavigate()
+
+  const handleTabClick = (tab: HeaderTabId) => {
+    onTabChange(tab)
+    if (tab === 'Matches') {
+      navigate(ROUTES.HOME)
+    }
+  }
+
   return (
     <nav className="hidden md:flex items-center gap-6 ml-8" aria-label="Main">
-      {TABS.map(({ label, to, end }) => (
-        <NavLink
-          key={label}
-          to={to}
-          end={end}
-          className={({ isActive }) =>
-            `text-tab font-medium transition-colors pb-1 border-b-2 ${
-              isActive ? 'text-white border-white' : 'text-white/70 border-transparent hover:text-white'
-            }`
-          }
-        >
-          {label}
-        </NavLink>
-      ))}
+      {TABS.map((tab) => {
+        const isActive = activeTab === tab
+        return (
+          <button
+            key={tab}
+            type="button"
+            onClick={() => handleTabClick(tab)}
+            className={`text-tab font-medium transition-colors pb-1 border-b-2 ${
+              isActive
+                ? 'text-secondary  border-secondary'
+                : 'text-white/60 border-transparent hover:text-white/80'
+            }`}
+          >
+            {tab}
+          </button>
+        )
+      })}
     </nav>
   )
 }

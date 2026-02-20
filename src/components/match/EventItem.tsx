@@ -8,27 +8,42 @@ export default function EventItem({ event }: EventItemProps) {
   const isGoal = event.type === 'goal'
   const isHome = event.teamSide === 'home'
 
+  const content =
+    event.type === 'substitution' ? (
+      <div className={`space-y-0.5 ${isHome ? 'text-right' : 'text-left'}`}>
+        <span className="text-white text-sm block">{event.playerIn} IN</span>
+        <span className="text-muted text-xs block">{event.playerOut} OUT</span>
+      </div>
+    ) : (
+      <span className="text-white text-sm">{event.primaryText}</span>
+    )
+
   return (
-    <div className={`flex items-center gap-3 py-2 ${isHome ? 'flex-row' : 'flex-row-reverse'}`}>
-      <div className={`flex-1 min-w-0 ${isHome ? 'text-left' : 'text-right'}`}>
-        {event.type === 'substitution' ? (
-          <div className="space-y-0.5">
-            <span className="text-white text-sm">{event.playerIn} IN</span>
-            <span className="text-muted text-xs block">{event.playerOut} OUT</span>
-          </div>
-        ) : (
-          <span className="text-white text-sm">{event.primaryText}</span>
+    <div className="flex items-center w-full">
+      <div className={`flex-1 min-w-0 flex items-center gap-2 py-1.5 ${isHome ? 'justify-end pr-2' : ''}`}>
+        {isHome && (
+          <>
+            <EventIcon type={event.type} />
+            {content}
+          </>
         )}
       </div>
-      <div className="flex items-center gap-2 shrink-0">
-        <EventIcon type={event.type} />
+      <div className="flex flex-col items-center shrink-0 w-14">
         <span
-          className={`px-2 py-1 rounded-pill text-status font-medium ${
-            isGoal ? 'bg-live text-white' : 'bg-surface-bar text-muted'
+          className={`px-2 py-1 rounded text-status font-medium whitespace-nowrap ${
+            isGoal ? 'bg-live text-white' : 'bg-surface-card text-muted'
           }`}
         >
           {event.minute}
         </span>
+      </div>
+      <div className={`flex-1 min-w-0 flex items-center gap-2 py-1.5 ${!isHome ? 'justify-start pl-2' : ''}`}>
+        {!isHome && (
+          <>
+            <EventIcon type={event.type} />
+            {content}
+          </>
+        )}
       </div>
     </div>
   )
